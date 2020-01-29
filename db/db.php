@@ -3,10 +3,12 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "rms";
-$con = mysqli_connect($servername,$username,$password,$dbname);
+// Create connection
+$con = new mysqli($servername, $username, $password, $dbname);
 
-if (mysqli_connect_errno()) {
-  print_r("Failed to connect to MYSQL: ". mysqli_connect_error());
+// Check connection
+if ($con->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
 

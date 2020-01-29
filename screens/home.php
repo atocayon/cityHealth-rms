@@ -52,7 +52,7 @@ include './/db/db.php';
           </div>
 
           <div class="col-md-2">
-            <a href="#" id="logout"> <i class="fas fa-power-off"></i>&nbsp;Logout, <?= $_SESSION['user'] ?> -
+            <a href=".//db/logout.php" id="logout"> <i class="fas fa-power-off"></i>&nbsp;Logout, <?= $_SESSION['user'] ?> -
 
               <?php
                 $branch_id = $_SESSION["branch"];
@@ -86,20 +86,28 @@ include './/db/db.php';
             <?php
 
 
-              $sql = $con->query("SELECT id, concat(fname,' ', LEFT(mname, 1)'.',' ',lname) as name, gender, age FROM patient_info_tbl");
+              $sql = "SELECT fname, LEFT(mname, 1) as middle,lname , id, gender, age FROM patient_info_tbl";
+              $result = $con->query($sql);
 
-              if ($sql) {
-                while($row = mysqli_fetch_array($sql)){
+              if ($result) {
+                while($row = $result->fetch_assoc()){
                   ?>
                   <tr>
-                    <td><?= $row['name'] ?></td>
+                    <td><?= $row['fname']." ".$row["middle"].". ".$row["lname"] ?></td>
                     <td><?= $row['gender'] ?></td>
                     <td><?= $row['age'] ?></td>
-                    <td>More Actions</td>
+                    <td>
+                      <a href="#">View More</a>
+                    </td>
                   </tr>
                   <?php
                 }
+              }else {
+                  echo $con->error;
               }
+
+
+
 
 
             ?>
@@ -114,107 +122,116 @@ include './/db/db.php';
         <table>
           <tr>
             <th>Referring Physician/Nurse:</th>
-            <td>
-              <input type="text" class="form-control">
+            <td colspan="2" >
+              <input type="text" class="form-control" id="referringPhysicianOrNurse">
             </td>
 
-            <th>Branch:</th>
-            <td>
+            <th style="text-align: right">Branch:</th>
+            <td colspan="2">
               <input type="text" class="form-control" value="<?= $branch_name ?>" disabled>
+              <input type="text" class="form-control" value="<?= $_SESSION['branch'] ?>" hidden id="branch">
             </td>
           </tr>
 
           <tr>
-            <td colspan="1"><br></td>
+            <td rowspan="1"><br></td>
           </tr>
 
           <tr>
             <th>Patient Name:</th>
-            <td>
-              <input type="text" class="form-control" placeholder="Lastname">
+            <td colspan="2">
+              <input type="text" class="form-control" placeholder="Lastname" id="lname">
+            </td>
+
+            <td colspan="2">
+              <input type="text" class="form-control" placeholder="Firstname" id="fname">
             </td>
 
             <td>
-              <input type="text" class="form-control" placeholder="Firstname">
-            </td>
-
-            <td>
-              <input type="text" class="form-control" placeholder="Middle name">
+              <input type="text" class="form-control" placeholder="Middle name" id="mname">
             </td>
           </tr>
 
           <tr>
-            <td colspan="1"><br></td>
+            <td rowspan="1"><br></td>
           </tr>
 
           <tr>
             <th>Gender:</th>
             <td>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" id="gender">
             </td>
 
-            <th>Age:</th>
+            <th style="text-align: right">Age:</th>
             <td>
-              <input type="text" class="form-control" >
+              <input type="number" class="form-control" id="age">
             </td>
 
-            <th>Birthdate:</th>
+            <th style="text-align: right">Birthdate:</th>
             <td>
-              <input type="date" class="form-control" >
+              <input type="date" class="form-control" id="bdate">
             </td>
           </tr>
 
           <tr>
-            <td colspan="1"><br></td>
+            <td rowspan="1"><br></td>
           </tr>
 
           <tr>
             <th>Home Address:</th>
             <td>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" id="homeAddress">
             </td>
 
-            <th>Birthplace:</th>
+            <th style="text-align: right">Birthplace:</th>
             <td>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" id="bplace">
             </td>
 
-            <th>Marital Status:</th>
+            <th style="text-align: right">Marital Status:</th>
             <td>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" id="maritalStatus">
             </td>
           </tr>
 
           <tr>
-            <td colspan="1"><br></td>
+            <td rowspan="1"><br></td>
           </tr>
 
           <tr>
             <th>Height:</th>
             <td>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" id="height">
             </td>
 
-            <th>Weight:</th>
+            <th style="text-align: right">Weight:</th>
             <td>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" id="weight">
             </td>
           </tr>
 
           <tr>
-            <td colspan="1"><br></td>
+            <td rowspan="1"><br></td>
           </tr>
 
           <tr>
             <th>Mother's Name:</th>
             <td>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" id="motherName">
             </td>
 
-            <th>Father's Name:</th>
+            <th style="text-align: right">Father's Name:</th>
             <td>
-              <input type="text" class="form-control" >
+              <input type="text" class="form-control" id="fatherName">
             </td>
+          </tr>
+          <tr>
+            <td rowspan="1"><br></td>
+          </tr>
+          <tr>
+            <th colspan="6" style="text-align: right">
+              <button type="button" name="button" style="border-radius: 10px;border: 1px solid #9E9E9E;padding: 5px" id="btn-submitNewRecord">Submit</button>
+            </th>
           </tr>
         </table>
       </div>
