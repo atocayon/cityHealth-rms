@@ -7,7 +7,7 @@
       <div style="height: 10vh;">
 
       </div>
-      <div class="alert alert-success role="alert"">
+      <div class="alert alert-success" role="alert">
         <form>
           <div class="form-group">
             <label for="Username">Username</label>
