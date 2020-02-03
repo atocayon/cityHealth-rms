@@ -5,7 +5,6 @@ include 'db.php';
 
 $branch = $_POST["branch"];
 $patient_id = $_POST["patient_id"];
-$referringPhysicianOrNurse = $_POST["referringPhysicianOrNurse"];
 $lname = $_POST["lname"];
 $fname = $_POST["fname"];
 $mname = $_POST["mname"];
@@ -22,7 +21,6 @@ $fatherName = $_POST["fatherName"];
 
 $sql = $con->query("UPDATE patient_info_tbl
   SET
-  referring_physician_or_nurse = '$referringPhysicianOrNurse',
   lname = '$lname',
   fname = '$fname',
   mname = '$mname',

@@ -14,7 +14,7 @@ include './/db/db.php';
       <?php
         if (isset($_GET['id'])) {
           $id = $_GET['id'];
-          echo $branch_id = $_SESSION["branch"];
+          $branch_id = $_SESSION["branch"];
           ?>
           <div class="row">
             <?php include 'screens/includes/header.php'; ?>
@@ -47,10 +47,6 @@ include './/db/db.php';
                       if ($branch_id === '7') {
                         ?>
                           <tr>
-                            <th>Referring Physician/Nurse:</th>
-                            <td colspan="2" >
-                              <input type="text" class="form-control" id="referringPhysicianOrNurse" disabled value="<?= $fetch['referring_physician_or_nurse'] ?>">
-                            </td>
 
                             <th style="text-align: right">Branch:</th>
                             <td colspan="2">
@@ -167,13 +163,13 @@ include './/db/db.php';
                     <th></th>
 
                     <th>
-                      <button type="button" name="button" class="btn btn-danger" id="btn-deleteRecord">Delete</button>
+                      <button type="button" name="button" class="btn btn-danger" id="btn-deleteRecord" onclick="return confirm('Are you sure?')">Delete</button>
                     </th>
 
                     <th></th>
                     <th></th>
                     <th>
-                      <button type="button" name="button" class="btn btn-primary" id="btn-checkUp">Check Up</button>
+                      <button type="button" name="button" class="btn btn-primary" id="btn-checkUp" data-toggle="modal" data-target="#myModal">Check Up</button>
                     </th>
                   </tr>
                 </table>
@@ -185,18 +181,131 @@ include './/db/db.php';
             <div class="row">
               <div class="col-md-12">
 
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                  <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <b><h4 class="modal-title"> <i class="fas fa-user"></i> <?= $fetch['fname'] ?>&nbsp;&nbsp;<?= $fetch['mname'] ?>&nbsp;&nbsp;<?= $fetch['lname'] ?></h4></b>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+
+                      <!-- Modal body -->
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <table>
+                              <tr>
+                                <td>Referring Physician/Nurse: </td>
+                                <td>
+                                  <select class="form-control" id="physicianOrNurse">
+                                    <option value="">--Select--</option>
+                                    <?php
+                                      $select = $con->query("SELECT * FROM physicianOrNurse_tbl");
+                                      while ($row = mysqli_fetch_array($select)) {
+                                        ?>
+                                        <option value="<?= $row['id'] ?>"><?= $row['fname'] ?>&nbsp;&nbsp;<?= $row['mname'] ?>&nbsp;&nbsp;<?= $row['lname'] ?></option>
+                                        <?php
+                                      }
+                                    ?>
+                                  </select>
+
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td rowspan="1"><br></td>
+                              </tr>
+
+
+                              <tr>
+                                <td>Check-Up Type:</td>
+                                <td>
+                                  <select class="form-control" id="checkUpType">
+                                    <option value="">---Select---</option>
+                                    <option value="PRENATAL">Prenatal</option>
+                                    <option value="ADULT">Adult</option>
+                                    <option value="CHILD">Child</option>
+                                  </select>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td rowspan="1"><br></td>
+                              </tr>
+
+
+                              <tr>
+                                <td>
+                                  Treatment:
+                                </td>
+                                <td>
+                                  <textarea name="name" rows="8" class="form-control" id="treatment"></textarea>
+
+                                </td>
+                              </tr>
+
+
+
+                              <tr>
+                                <td rowspan="1"><br></td>
+                              </tr>
+
+                              <tr>
+                                <td>
+                                  Findings:
+                                </td>
+                                <td>
+                                  <textarea name="name" rows="8" class="form-control" id="findings"></textarea>
+
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal footer -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btn-saveCheckUp">Save</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
                 <br>
                 <br>
                 <br>
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Treatment</th>
+                      <th>Referring Physician/Nurse</th>
                       <th>Check Up Type</th>
+                      <th>Treatment</th>
                       <th>Findings</th>
                       <th>Date Check Up</th>
                     </tr>
                   </thead>
+
+                  <tbody>
+                    <?php
+                      $records = $con->query("SELECT * FROM check_up_tbl WHERE patient_id = '$id' ORDER BY dateCheckUp DESC");
+                      while($res = mysqli_fetch_array($records)){
+                        ?>
+                          <tr>
+                            <td><?= $res['referringPhysicianOrNurse'] ?></td>
+                            <td><?= $res['check_up_type'] ?></td>
+                            <td><?= $res['treatment'] ?></td>
+                            <td><?= $res['findings'] ?></td>
+                            <td><?= $res['dateCheckUp'] ?></td>
+                          </tr>
+                        <?php
+                      }
+                    ?>
+                  </tbody>
 
                 </table>
               </div>

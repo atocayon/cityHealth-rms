@@ -1,13 +1,9 @@
 <div class="col-md-12">
   <table>
     <tr>
-      <th>Referring Physician/Nurse:</th>
-      <td colspan="2" >
-        <input type="text" class="form-control" id="referringPhysicianOrNurse">
-      </td>
 
       <th style="text-align: right">Branch:</th>
-      <td colspan="2">
+      <td colspan="4">
         <input type="text" class="form-control" value="<?= $branch_name ?>" disabled>
         <input type="text" class="form-control" value="<?= $_SESSION['branch'] ?>" hidden id="branch">
       </td>
@@ -110,7 +106,7 @@
     </tr>
     <tr>
       <th colspan="6" style="text-align: right">
-        <button type="button" name="button" style="border-radius: 10px;border: 1px solid #9E9E9E;padding: 5px" id="btn-submitNewRecord">Submit</button>
+        <button type="button" name="button" class="btn btn-primary" id="btn-submitNewRecord">Submit</button>
       </th>
     </tr>
   </table>

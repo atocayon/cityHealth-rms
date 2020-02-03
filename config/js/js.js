@@ -198,7 +198,7 @@ $(document).ready(function(){
         },
         success: function(data){
           console.log(data);
-          if (date.insert === 'success') {
+          if (data.insert === 'success') {
             window.location.replace("http://localhost/rms");
           }else{
             alert("Already in database...");
@@ -294,6 +294,57 @@ $(document).ready(function(){
         alert(err);
       }
     });
+  });
+
+  $("#btn-deleteRecord").click(function(){
+    $.ajax({
+      url: ".//db/deleteRecord.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        patient_id: $("#patient_id").val()
+      },
+      success: function(data){
+          console.log(data);
+          window.location.replace("http://localhost/rms");
+      },
+      error: function(err){
+        alert(err);
+      }
+    });
+  });
+
+  $("#btn-saveCheckUp").click(function(){
+
+    if ($("#physicianOrNurse").val() !== "" && $("#checkUpType").val() !== "" && $("#treatment").val() !== "" && $("#findings").val() !== "") {
+      $.ajax({
+        url: ".//db/recordCheckUp.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          patient_id: $("#patient_id").val(),
+          physicianOrNurse: $("#physicianOrNurse").val(),
+          checkUpType: $("#checkUpType").val(),
+          treatment: $("#treatment").val(),
+          findings: $("#findings").val()
+        },
+        succes: function(data){
+            console.log(data);
+            $("#myModal").modal("hide");
+            window.location.replace("http://localhost/rms/patient.php?id="+$("#patient_id").val());
+
+        },
+        error: function(err){
+          alert(err);
+        }
+      });
+    }else{
+      $("#physicianOrNurse").css("border","1px solid red");
+      $("#checkUpType").css("border","1px solid red");
+      $("#treatment").css("border","1px solid red");
+      $("#findings").css("border","1px solid red");
+    }
+
   });
 
 })
