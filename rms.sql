@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 29, 2020 at 09:04 AM
+-- Generation Time: Feb 03, 2020 at 09:54 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -75,11 +75,21 @@ INSERT INTO `branch_tbl` (`id`, `branch_name`) VALUES
 CREATE TABLE `check_up_tbl` (
   `id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
+  `referringPhysicianOrNurse` int(11) NOT NULL,
   `treatment` varchar(120) NOT NULL,
   `check_up_type` varchar(120) NOT NULL,
   `findings` varchar(120) NOT NULL,
-  `dateCheckUp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `dateCheckUp` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `check_up_tbl`
+--
+
+INSERT INTO `check_up_tbl` (`id`, `patient_id`, `referringPhysicianOrNurse`, `treatment`, `check_up_type`, `findings`, `dateCheckUp`) VALUES
+(1, 2, 1, 'ADULT', 'Duis voluptatem Pos', 'Et exercitationem ea', '2020-02-03'),
+(2, 2, 1, 'ADULT', 'Duis voluptatem Pos', 'Et exercitationem ea', '2020-02-03'),
+(3, 2, 1, 'PRENATAL', 'Iusto aut autem natu', 'Sed aliquam providen', '2020-02-03');
 
 -- --------------------------------------------------------
 
@@ -89,7 +99,6 @@ CREATE TABLE `check_up_tbl` (
 
 CREATE TABLE `patient_info_tbl` (
   `id` int(11) NOT NULL,
-  `referring_physician_or_nurse` varchar(120) NOT NULL,
   `lname` varchar(120) NOT NULL,
   `fname` varchar(120) NOT NULL,
   `mname` varchar(120) NOT NULL,
@@ -104,15 +113,36 @@ CREATE TABLE `patient_info_tbl` (
   `fathers_name` varchar(120) NOT NULL,
   `bplace` varchar(120) NOT NULL,
   `branch_id` int(11) NOT NULL,
-  `dateRecorded` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `dateRecorded` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `patient_info_tbl`
 --
 
-INSERT INTO `patient_info_tbl` (`id`, `referring_physician_or_nurse`, `lname`, `fname`, `mname`, `gender`, `bday`, `age`, `address`, `marital_status`, `height`, `weight`, `mothers_name`, `fathers_name`, `bplace`, `branch_id`, `dateRecorded`) VALUES
-(1, 'Error omnis aut exce', 'Thaddeus Herman', 'Kyra Mcmillan', 'Prescott Burton', 'In cumque in repelle', '1985-02-16', 60, 'Veniam porro adipis', 'In officia consequun', 'Quia sed eaque labor', 'Eius vitae quia volu', 'Et voluptatem dicta', 'Dolan Roth', 'Chanda Chandler', 7, '2020-01-29 07:46:47');
+INSERT INTO `patient_info_tbl` (`id`, `lname`, `fname`, `mname`, `gender`, `bday`, `age`, `address`, `marital_status`, `height`, `weight`, `mothers_name`, `fathers_name`, `bplace`, `branch_id`, `dateRecorded`) VALUES
+(2, 'Sample', 'Sample', 'C.', 'Animi rerum culpa f', '2019-10-14', 8, 'Hic animi enim iste', 'Distinctio Est est', 'Culpa quia saepe od', 'Ex quibusdam est nih', 'Consequuntur unde la', 'Fredericka Gross', 'Marvin Knox', 7, '2020-02-03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `physicianOrNurse_tbl`
+--
+
+CREATE TABLE `physicianOrNurse_tbl` (
+  `id` int(11) NOT NULL,
+  `lname` varchar(120) NOT NULL,
+  `fname` varchar(120) NOT NULL,
+  `mname` varchar(120) NOT NULL,
+  `title` varchar(120) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `physicianOrNurse_tbl`
+--
+
+INSERT INTO `physicianOrNurse_tbl` (`id`, `lname`, `fname`, `mname`, `title`) VALUES
+(1, 'sample', 'sample', 'sample', 'sample');
 
 --
 -- Indexes for dumped tables
@@ -143,6 +173,12 @@ ALTER TABLE `patient_info_tbl`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `physicianOrNurse_tbl`
+--
+ALTER TABLE `physicianOrNurse_tbl`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -162,12 +198,18 @@ ALTER TABLE `branch_tbl`
 -- AUTO_INCREMENT for table `check_up_tbl`
 --
 ALTER TABLE `check_up_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `patient_info_tbl`
 --
 ALTER TABLE `patient_info_tbl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `physicianOrNurse_tbl`
+--
+ALTER TABLE `physicianOrNurse_tbl`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
