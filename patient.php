@@ -40,7 +40,7 @@ include './/db/db.php';
 
             ?>
 
-            <div class="row">
+            <div class="row patientInfo-container">
               <div class="col-md-12">
                 <table>
                   <?php

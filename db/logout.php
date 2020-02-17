@@ -4,6 +4,9 @@ include "db.php";
 
 
 if (isset($_SESSION["user"])) {
+  $user = $_SESSION['user'];
+  $sql = $con->query("UPDATE admin_accounts SET status = 0 WHERE uname = '$user'");
+
   // remove all session variables
 session_unset();
 

@@ -16,6 +16,7 @@
   background: #fff;
   width: 100vw;
   box-shadow: 2px 2px 2px #E0E0E0;
+  position: fixed;
 
   img{
     width: 5vw;
@@ -33,4 +34,27 @@
 
 #dashboard{
   text-decoration: underline;
+}
+
+.nav-container{
+  position: fixed;
+  margin-top: 12vh;
+  width: 70vw;
+  background: #fff;
+}
+
+#dashboard-container{
+  margin-top: 15vh;
+}
+
+.patientInfo-container{
+  margin-top: 12vh;
+}
+
+.addNewRecord-container{
+  margin-top: 12vh;
+}
+
+.userManagement{
+  margin-top: 12vh;
 }

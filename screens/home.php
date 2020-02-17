@@ -1,5 +1,7 @@
 <?php
 include './/db/db.php';
+$user = $_SESSION['user'];
+$query = $con->query("UPDATE admin_accounts SET status = 1 WHERE uname = '$user'");
 ?>
   <div class="row">
     <?php include 'includes/header.php'; ?>
@@ -61,6 +63,10 @@ include './/db/db.php';
 
     <div class="row" id="transaction-container" style="display:none">
       <?php include 'addNewRecord.php'; ?>
+    </div>
+
+    <div class="row" id="userManagement-container" style="display: none">
+      <?php include 'userManagement.php'; ?>
     </div>
 
 

@@ -39,6 +39,7 @@ $(document).ready(function(){
 
     $("#dashboard-container").show();
     $("#transaction-container").hide();
+    $("#userManagement-container").hide();
   });
 
   $("#transaction").click(function(event){
@@ -52,6 +53,7 @@ $(document).ready(function(){
 
     $("#transaction-container").show();
     $("#dashboard-container").hide();
+    $("#userManagement-container").hide();
   });
 
   $("#reports").click(function(event){
@@ -65,6 +67,7 @@ $(document).ready(function(){
 
     $("#dashboard-container").hide();
     $("#transaction-container").hide();
+    $("#userManagement-container").hide();
   });
 
   $("#userManagement").click(function(event){
@@ -78,6 +81,7 @@ $(document).ready(function(){
 
     $("#dashboard-container").hide();
     $("#transaction-container").hide();
+    $("#userManagement-container").show();
   });
 
   $("#maintenance").click(function(event){
@@ -91,6 +95,7 @@ $(document).ready(function(){
 
     $("#dashboard-container").hide();
     $("#transaction-container").hide();
+    $("#userManagement-container").hide();
   });
 
   $("#tbl-dashboard").DataTable();
@@ -345,6 +350,115 @@ $(document).ready(function(){
       $("#findings").css("border","1px solid red");
     }
 
+  });
+
+
+  $("#save").click(function(){
+
+    if ($("#userBranch").val() === "" ) {
+      $("#userBranch").css("border", "1px solid red");
+    }
+
+    if ($("#userName").val() === "") {
+      $("#userName").css("border", "1px solid red");
+    }
+
+    if ($("#userPassword").val() === "") {
+      $("#userPassword").css("border", "1px solid red");
+    }
+
+    if ($("#userBranch").val() !== "") {
+      $("#userBranch").css("border", "1px solid #E0E0E0");
+    }
+
+    if ($("#userName").val() !== "") {
+      $("#userName").css("border", "1px solid #E0E0E0");
+    }
+
+    if ($("#userPassword").val() !== "") {
+      $("#userPassword").css("border", "1px solid #E0E0E0");
+    }
+
+
+    if ($("#userBranch").val() !== "" && $("#userName").val() !== "" && $("#userPassword").val() !== "") {
+      $.ajax({
+        url: ".//db/insertNewUser.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          sessionUser: $("#sessionUser").val(),
+          userBranch: $("#userBranch").val(),
+          userName: $("#userName").val(),
+          userPassword: $("#userPassword").val()
+        },
+        success: function(data){
+
+          if (data.insert === "success") {
+            confirm('Success!!!');
+            $("#userManagementModal").modal("hide");
+          }
+
+          if (data.insert === "exist") {
+            confirm('The username is already taken!!!');
+            $("#userManagementModal").modal("hide");
+          }
+
+
+
+
+        },
+        error: function(err){
+          console.log(err);
+          alert(err)
+        }
+      });
+    }
+
+
+  });
+
+  $("#btn-editUserInfo").click(function(){
+    $("#btn-editUserInfo").hide();
+    $("#btn-updateUserInfo").show();
+    $("#btn-addNewUser").hide();
+
+
+    $("#user-Username").prop("disabled",false);
+    $("#user-Password").prop("disabled",false);
+
+  });
+
+  $("#btn-updateUserInfo").click(function(){
+
+    $.ajax({
+      url: ".//db/updateUserInfo.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        sessionUser: $("#sessionUser").val(),
+        username: $("#user-Username").val(),
+        password: $("#user-Password").val()
+      },
+      success: function(data){
+        if (data.update === 'duplicate') {
+          confirm('Username is already taken!!!');
+        }
+
+        if (data.update === "success") {
+          confirm('Update Success');
+          $("#btn-editUserInfo").show();
+          $("#btn-updateUserInfo").hide();
+          $("#btn-addNewUser").show();
+
+
+          $("#user-Username").prop("disabled",true);
+          $("#user-Password").prop("disabled",true);
+        }
+      },
+      error: function(err){
+
+      }
+    });
   });
 
 })

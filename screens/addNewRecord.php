@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-12 addNewRecord-container">
   <table>
     <tr>
 

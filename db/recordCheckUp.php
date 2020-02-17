@@ -20,8 +20,8 @@ $sql = $con->query("INSERT INTO check_up_tbl (
   VALUES (
     '$patient_id',
     '$physicianOrNurse',
-    '$checkUpType',
     '$treatment',
+    '$checkUpType',
     '$findings',
     '$date'
   )");
