@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 03, 2020 at 09:54 AM
+-- Generation Time: Feb 19, 2020 at 02:47 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -32,15 +32,23 @@ CREATE TABLE `admin_accounts` (
   `id` int(11) NOT NULL,
   `uname` varchar(120) NOT NULL,
   `pword` varchar(120) NOT NULL,
-  `branch` int(11) NOT NULL
+  `branch` int(11) NOT NULL,
+  `addedBy` int(11) NOT NULL,
+  `dateRegistered` date NOT NULL,
+  `status` int(11) NOT NULL,
+  `active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin_accounts`
 --
 
-INSERT INTO `admin_accounts` (`id`, `uname`, `pword`, `branch`) VALUES
-(1, 'admin', 'admin', 7);
+INSERT INTO `admin_accounts` (`id`, `uname`, `pword`, `branch`, `addedBy`, `dateRegistered`, `status`, `active`) VALUES
+(1, 'admin', 'admin', 7, 1, '0000-00-00', 1, 0),
+(2, 'sample', 'sample', 1, 1, '2020-02-17', 0, 0),
+(3, 'qwert', 'qwert', 3, 1, '2020-02-17', 0, 0),
+(4, 'tyu', 'tyu', 5, 1, '2020-02-17', 0, 0),
+(5, 'qwe', 'qwe', 6, 1, '2020-02-17', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -50,21 +58,22 @@ INSERT INTO `admin_accounts` (`id`, `uname`, `pword`, `branch`) VALUES
 
 CREATE TABLE `branch_tbl` (
   `id` int(11) NOT NULL,
-  `branch_name` varchar(120) NOT NULL
+  `branch_name` varchar(120) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `branch_tbl`
 --
 
-INSERT INTO `branch_tbl` (`id`, `branch_name`) VALUES
-(1, 'Abucay'),
-(2, 'Diit'),
-(3, 'San jose'),
-(4, 'Utap'),
-(5, 'V&G'),
-(6, 'Sagkahan'),
-(7, 'Tacloban City');
+INSERT INTO `branch_tbl` (`id`, `branch_name`, `status`) VALUES
+(1, 'Abucay', 1),
+(2, 'Diit', 1),
+(3, 'San jose', 1),
+(4, 'Utap', 1),
+(5, 'V&G', 1),
+(6, 'Sagkahan', 1),
+(7, 'Tacloban City', 1);
 
 -- --------------------------------------------------------
 
@@ -81,15 +90,6 @@ CREATE TABLE `check_up_tbl` (
   `findings` varchar(120) NOT NULL,
   `dateCheckUp` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `check_up_tbl`
---
-
-INSERT INTO `check_up_tbl` (`id`, `patient_id`, `referringPhysicianOrNurse`, `treatment`, `check_up_type`, `findings`, `dateCheckUp`) VALUES
-(1, 2, 1, 'ADULT', 'Duis voluptatem Pos', 'Et exercitationem ea', '2020-02-03'),
-(2, 2, 1, 'ADULT', 'Duis voluptatem Pos', 'Et exercitationem ea', '2020-02-03'),
-(3, 2, 1, 'PRENATAL', 'Iusto aut autem natu', 'Sed aliquam providen', '2020-02-03');
 
 -- --------------------------------------------------------
 
@@ -113,15 +113,17 @@ CREATE TABLE `patient_info_tbl` (
   `fathers_name` varchar(120) NOT NULL,
   `bplace` varchar(120) NOT NULL,
   `branch_id` int(11) NOT NULL,
-  `dateRecorded` date NOT NULL DEFAULT current_timestamp()
+  `dateRecorded` date NOT NULL DEFAULT current_timestamp(),
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `patient_info_tbl`
 --
 
-INSERT INTO `patient_info_tbl` (`id`, `lname`, `fname`, `mname`, `gender`, `bday`, `age`, `address`, `marital_status`, `height`, `weight`, `mothers_name`, `fathers_name`, `bplace`, `branch_id`, `dateRecorded`) VALUES
-(2, 'Sample', 'Sample', 'C.', 'Animi rerum culpa f', '2019-10-14', 8, 'Hic animi enim iste', 'Distinctio Est est', 'Culpa quia saepe od', 'Ex quibusdam est nih', 'Consequuntur unde la', 'Fredericka Gross', 'Marvin Knox', 7, '2020-02-03');
+INSERT INTO `patient_info_tbl` (`id`, `lname`, `fname`, `mname`, `gender`, `bday`, `age`, `address`, `marital_status`, `height`, `weight`, `mothers_name`, `fathers_name`, `bplace`, `branch_id`, `dateRecorded`, `status`) VALUES
+(2, 'Sample', 'Sample', 'C.', 'Animi rerum culpa f', '2019-09-14', 8, 'Hic animi enim iste', 'Distinctio Est est', 'Culpa quia saepe od', 'Ex quibusdam est nih', 'Consequuntur unde la', 'Fredericka Gross', 'Marvin Knox', 7, '2020-02-03', 1),
+(3, 'Solomon Navarro', 'Otto Rose', 'Astra Shields', 'Dolor consequatur c', '1981-00-05', 96, 'Maxime mollit evenie', 'Suscipit numquam min', 'Officiis cum ut unde', 'Ullamco illum fugit', 'Aut sint nesciunt u', 'Hakeem Jimenez', 'Cassandra Navarro', 7, '2020-02-19', 1);
 
 -- --------------------------------------------------------
 
@@ -134,15 +136,16 @@ CREATE TABLE `physicianOrNurse_tbl` (
   `lname` varchar(120) NOT NULL,
   `fname` varchar(120) NOT NULL,
   `mname` varchar(120) NOT NULL,
-  `title` varchar(120) NOT NULL
+  `title` varchar(120) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `physicianOrNurse_tbl`
 --
 
-INSERT INTO `physicianOrNurse_tbl` (`id`, `lname`, `fname`, `mname`, `title`) VALUES
-(1, 'sample', 'sample', 'sample', 'sample');
+INSERT INTO `physicianOrNurse_tbl` (`id`, `lname`, `fname`, `mname`, `title`, `status`) VALUES
+(1, 'sample', 'sample', 'sample', 'sample', 0);
 
 --
 -- Indexes for dumped tables
@@ -186,7 +189,7 @@ ALTER TABLE `physicianOrNurse_tbl`
 -- AUTO_INCREMENT for table `admin_accounts`
 --
 ALTER TABLE `admin_accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `branch_tbl`
@@ -198,13 +201,13 @@ ALTER TABLE `branch_tbl`
 -- AUTO_INCREMENT for table `check_up_tbl`
 --
 ALTER TABLE `check_up_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `patient_info_tbl`
 --
 ALTER TABLE `patient_info_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `physicianOrNurse_tbl`

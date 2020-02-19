@@ -30,7 +30,7 @@ include './/db/db.php';
             <br>
 
             <?php
-              if ($branch_id !== 7) {
+              if ($branch_id !== '7') {
                 $sql = $con->query("SELECT * FROM patient_info_tbl WHERE id = '$id' AND branch_id = '$branch_id'");
                 $fetch = $sql->fetch_assoc();
               }else{
@@ -279,6 +279,11 @@ include './/db/db.php';
                 <br>
                 <br>
                 <br>
+                <center>
+                  <h4>
+                    <b>Check up Record</b>
+                  </h4>
+                </center>
                 <table class="table">
                   <thead>
                     <tr>

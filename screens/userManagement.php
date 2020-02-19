@@ -25,7 +25,7 @@ $user = $_SESSION['user'];
                       <?php
 
 
-                      $sql = $con->query("SELECT * FROM branch_tbl");
+                      $sql = $con->query("SELECT * FROM branch_tbl WHERE status = 1");
                       while($row = mysqli_fetch_array($sql)){
                         ?>
                           <option value="<?= $row['id'] ?>"><?= $row['branch_name'] ?></option>

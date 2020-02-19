@@ -38,7 +38,8 @@ if (!$check) {
       fathers_name,
       bplace,
       branch_id,
-      dateRecorded
+      dateRecorded,
+      status
     )
     VALUES
     (
@@ -56,7 +57,8 @@ if (!$check) {
       '$motherName',
       '$fatherName',
       '$branch_id',
-      '$date'
+      '$date',
+      1
     )
     ");
 

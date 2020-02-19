@@ -39,6 +39,7 @@ $(document).ready(function(){
 
     $("#dashboard-container").show();
     $("#transaction-container").hide();
+    $("#maintenance-container").hide();
     $("#userManagement-container").hide();
   });
 
@@ -53,6 +54,7 @@ $(document).ready(function(){
 
     $("#transaction-container").show();
     $("#dashboard-container").hide();
+    $("#maintenance-container").hide();
     $("#userManagement-container").hide();
   });
 
@@ -67,6 +69,7 @@ $(document).ready(function(){
 
     $("#dashboard-container").hide();
     $("#transaction-container").hide();
+    $("#maintenance-container").hide();
     $("#userManagement-container").hide();
   });
 
@@ -81,6 +84,7 @@ $(document).ready(function(){
 
     $("#dashboard-container").hide();
     $("#transaction-container").hide();
+    $("#maintenance-container").hide();
     $("#userManagement-container").show();
   });
 
@@ -96,9 +100,12 @@ $(document).ready(function(){
     $("#dashboard-container").hide();
     $("#transaction-container").hide();
     $("#userManagement-container").hide();
+    $("#maintenance-container").show();
   });
 
   $("#tbl-dashboard").DataTable();
+  $("#tbl-modalManagePatient").DataTable();
+  $("#tbl-manageBranch").DataTable();
 
   // $("#bdate").mask("9999/99/99", {placeholder: 'YYYY/MM/DD' });
 
@@ -460,5 +467,93 @@ $(document).ready(function(){
       }
     });
   });
+
+  // $(".btn-activate").click(function(){
+  //   console.log($("#patient-id").val());
+  //   $.ajax({
+  //     url: ".//db/activatePatient.php",
+  //     type: "POST",
+  //     dataType: "json",
+  //     data: {
+  //       patientID: $("#patient-id").val()
+  //     },
+  //     success: function(data){
+  //       if (data.update === "success") {
+  //         console.log("success");
+  //         // window.location.replace("http://localhost/rms");
+  //         $("#managePatientModal").modal("hide");
+  //       }
+  //     },
+  //     error: function(err){
+  //       alert(err);
+  //     }
+  //   });
+  // });
+  //
+  // $(".btn-deactivate").click(function(){
+  //     console.log($("#patient-id").val());
+  //   $.ajax({
+  //     url: ".//db/deactivatePatient.php",
+  //     type: "POST",
+  //     dataType: "json",
+  //     data: {
+  //       patientID: $("#patient-id").val()
+  //     },
+  //     success: function(data){
+  //       if (data.update === "success") {
+  //         console.log("success");
+  //         // window.location.replace("http://localhost/rms");
+  //         $("#managePatientModal").modal("hide");
+  //       }
+  //     },
+  //     error: function(err){
+  //       alert(err);
+  //     }
+  //   });
+  // });
+  //
+  // $(".btn-branchActivate").click(function(){
+  //   console.log($(".branch-id").val());
+  //   $.ajax({
+  //     url: ".//db/activateBranch.php",
+  //     type: "POST",
+  //     dataType: "json",
+  //     data: {
+  //       branchID: $(".branch-id").val()
+  //     },
+  //     success: function(data){
+  //       if (data.update === "success") {
+  //         console.log("success");
+  //         // window.location.replace("http://localhost/rms");
+  //         $("#manageBranchModal").modal("hide");
+  //       }
+  //     },
+  //     error: function(err){
+  //       alert(err);
+  //     }
+  //   });
+  // });
+  //
+  // $(".btn-branchDeactivate").click(function(){
+  //   console.log($(".branch-id").val());
+  //   $.ajax({
+  //     url: ".//db/deactivateBranch.php",
+  //     type: "POST",
+  //     dataType: "json",
+  //     data: {
+  //       branchID: $(".branch-id").val()
+  //     },
+  //     success: function(data){
+  //       if (data.update === "success") {
+  //         console.log("success");
+  //         // window.location.replace("http://localhost/rms");
+  //         $("#manageBranchModal").modal("hide");
+  //       }
+  //     },
+  //     error: function(err){
+  //       alert(err);
+  //     }
+  //   });
+  // });
 
 })

@@ -29,12 +29,13 @@ $query = $con->query("UPDATE admin_accounts SET status = 1 WHERE uname = '$user'
           </thead>
           <tbody>
             <?php
+               $branch_id = $_SESSION["branch"];
               if ($branch_id !== '7') {
-                $sql = "SELECT fname, LEFT(mname, 1) as middle,lname , id, gender, age FROM patient_info_tbl WHERE branch_id = '$branch_id' ORDER BY dateRecorded DESC";
+                $sql = "SELECT fname, LEFT(mname, 1) as middle,lname , id, gender, age FROM patient_info_tbl WHERE branch_id = '$branch_id' AND status = 1 ORDER BY dateRecorded DESC";
                 $result = $con->query($sql);
 
               }else{
-                $sql = "SELECT fname, LEFT(mname, 1) as middle,lname , id, gender, age FROM patient_info_tbl ORDER BY dateRecorded DESC";
+                $sql = "SELECT fname, LEFT(mname, 1) as middle,lname , id, gender, age FROM patient_info_tbl WHERE status = 1 ORDER BY dateRecorded DESC";
                 $result = $con->query($sql);
               }
 
@@ -67,6 +68,10 @@ $query = $con->query("UPDATE admin_accounts SET status = 1 WHERE uname = '$user'
 
     <div class="row" id="userManagement-container" style="display: none">
       <?php include 'userManagement.php'; ?>
+    </div>
+
+    <div class="row" id="maintenance-container" style="display: none">
+      <?php include 'maintenance.php'; ?>
     </div>
 
 
