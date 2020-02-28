@@ -13,8 +13,14 @@ $(document).ready(function(){
           pword: $("#pword").val()
         },
         success: function(data){
-          console.log(data);
-          location.reload(true);
+          console.log(data.login);
+          if (data.login === "success") {
+            location.reload(true);
+          }
+
+          if (data.login === "failed") {
+            alert("Ops! It seems that you are an unregistered user...");
+          }
         },
         error: function(err){
           alert(err);
@@ -106,6 +112,8 @@ $(document).ready(function(){
   $("#tbl-dashboard").DataTable();
   $("#tbl-modalManagePatient").DataTable();
   $("#tbl-manageBranch").DataTable();
+  $("#manage-physicianOrNurse").DataTable();
+  $("#tbl-manageAdmin").DataTable();
 
   // $("#bdate").mask("9999/99/99", {placeholder: 'YYYY/MM/DD' });
 
@@ -555,5 +563,55 @@ $(document).ready(function(){
   //     }
   //   });
   // });
+
+  $("#btn-addNewPhysician").click(function(){
+    $(".tableManagePhysician-container").hide();
+    $("#btn-addNewPhysician").hide();
+    $(".addNewPhysician-container").show();
+    $("#btn-saveNewPhysician").show();
+    $("#btn-backManagePhysician").show();
+  });
+
+  $("#btn-saveNewPhysician").click(function(){
+    if ($("#title").val() === "" && $("#physician_fname").val() === "" && $("#physician_mname").val() === "" && $("#physician_lname").val() === "") {
+      $("#title").css("border", "1px solid red");
+      $("#physician_fname").css("border", "1px solid red");
+      $("#physician_mname").css("border", "1px solid red");
+      $("#physician_lname").css("border", "1px solid red");
+    }else{
+      $.ajax({
+        url: ".//db/saveNewPhysician.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          title: $("#title").val(),
+          fname: $("#physician_fname").val(),
+          mname: $("#physician_mname").val(),
+          lname: $("#physician_lname").val()
+        },
+        success: function(data){
+          console.log(data);
+          if (data.insert === "failed") {
+            alert("Warning, Data duplication!");
+          }
+
+          if (data.insert === "success") {
+            window.location.replace("http://localhost/rms");
+          }
+        },
+        error: function(err){
+          alert(err);
+        }
+      });
+    }
+  });
+
+  $("#btn-backManagePhysician").click(function(){
+    $(".tableManagePhysician-container").show();
+    $("#btn-addNewPhysician").show();
+    $(".addNewPhysician-container").hide();
+    $("#btn-saveNewPhysician").hide();
+    $("#btn-backManagePhysician").hide();
+  });
 
 })
