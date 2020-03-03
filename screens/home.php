@@ -14,8 +14,7 @@ $query = $con->query("UPDATE admin_accounts SET status = 1 WHERE uname = '$user'
     <?php include 'includes/nav.php'; ?>
 
     <br>
-    <br>
-    <br>
+
     <div class="row" id="dashboard-container">
       <div class="col-md-12">
         <table id="tbl-dashboard">
@@ -64,6 +63,10 @@ $query = $con->query("UPDATE admin_accounts SET status = 1 WHERE uname = '$user'
 
     <div class="row" id="transaction-container" style="display:none">
       <?php include 'addNewRecord.php'; ?>
+    </div>
+
+    <div class="row" id="generate-container" style="display:none">
+      <?php include 'generateReports.php'; ?>
     </div>
 
     <div class="row" id="userManagement-container" style="display: none">

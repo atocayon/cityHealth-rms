@@ -12,3 +12,4 @@
 <script src=".//config/js/js.js">
 </script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>

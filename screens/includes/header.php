@@ -1,5 +1,5 @@
-<div class="col-md-12">
-  <div id="header-container">
+<div class="col-md-12" id="header-container">
+  <div >
     <div class="row">
       <div class="col-md-2">
 

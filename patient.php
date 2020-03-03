@@ -25,9 +25,7 @@ include './/db/db.php';
 
           <div class="container">
               <?php include 'screens/includes/nav.php'; ?>
-            <br>
-            <br>
-            <br>
+              <br>
 
             <?php
               if ($branch_id !== '7') {
@@ -258,7 +256,7 @@ include './/db/db.php';
                                   Findings:
                                 </td>
                                 <td>
-                                  <textarea name="name" rows="8" class="form-control" id="findings"></textarea>
+                                  <input name="name" class="form-control" id="findings"></input>
 
                                 </td>
                               </tr>

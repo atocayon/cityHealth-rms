@@ -1,8 +1,8 @@
 .logo-container {
   position: fixed;
   width: 100vw;
-  background: #fff;
-  bottom: 0; }
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.5); }
 
 #site-logo {
   width: 3vw;
@@ -30,22 +30,46 @@
   text-decoration: underline; }
 
 .nav-container {
-  position: fixed;
-  margin-top: 12vh;
-  width: 70vw;
-  background: #fff; }
+  margin-top: 6vh;
+  padding-top: 10vh;
+  background: rgba(0, 0, 0, 0.8) !important; }
+  .nav-container a {
+    color: #fff; }
 
 #dashboard-container {
-  margin-top: 15vh; }
+  margin-top: 8vh; }
 
 .patientInfo-container {
-  margin-top: 12vh; }
+  margin-top: 1vh; }
 
 .addNewRecord-container {
-  margin-top: 12vh; }
+  margin-top: 2vh; }
 
 .userManagement {
-  margin-top: 12vh; }
+  margin-top: 2vh; }
 
 #maintenance-container {
-  margin-top: 15vh; }
+  margin-top: 5vh; }
+
+.login-container {
+  background-image: url("../../img/background.jpg");
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.5; }
+  .login-container label {
+    color: #fff; }
+  .login-container h1 {
+    text-align: center;
+    color: #fff;
+    font-weight: bold; }
+  .login-container .login {
+    border: 1px solid black;
+    background: rgba(0, 0, 0, 0.9) !important;
+    padding: 1vw;
+    border-radius: 30px;
+    width: 40vw;
+    position: fixed;
+    margin-left: 12vw; }
