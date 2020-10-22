@@ -295,7 +295,7 @@ include './/db/db.php';
 
                   <tbody>
                     <?php
-                      $records = $con->query("SELECT * FROM check_up_tbl WHERE patient_id = '$id' ORDER BY dateCheckUp DESC");
+                      $records = $con->query("SELECT a.referringPhysicianOrNurse, a.check_up_type, a.treatment, a.findings, DATE_FORMAT(a.dateCheckUp,'%M %d, %Y') AS dateCheckUp  FROM check_up_tbl a WHERE patient_id = '$id' ORDER BY dateCheckUp DESC");
                       while($res = mysqli_fetch_array($records)){
                         ?>
                           <tr>
@@ -303,7 +303,7 @@ include './/db/db.php';
                             <td><?= $res['check_up_type'] ?></td>
                             <td><?= $res['treatment'] ?></td>
                             <td><?= $res['findings'] ?></td>
-                            <td><?= date_format($res['dateCheckUp'], Y-M-d) ?></td>
+                            <td><?= $res['dateCheckUp'] ?></td>
                           </tr>
                         <?php
                       }
