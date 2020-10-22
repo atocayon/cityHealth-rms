@@ -303,7 +303,7 @@ include './/db/db.php';
                             <td><?= $res['check_up_type'] ?></td>
                             <td><?= $res['treatment'] ?></td>
                             <td><?= $res['findings'] ?></td>
-                            <td><?= $res['dateCheckUp'] ?></td>
+                            <td><?= date_format($res['dateCheckUp'], Y-M-d) ?></td>
                           </tr>
                         <?php
                       }
