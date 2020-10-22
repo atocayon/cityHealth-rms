@@ -50,12 +50,12 @@ if (!$check) {
       '$bdate',
       '$age',
       '$homeAddress',
-      '$bplace',
       '$maritalStatus',
       '$height',
       '$weight',
       '$motherName',
       '$fatherName',
+      '$bplace',
       '$branch_id',
       '$date',
       1
