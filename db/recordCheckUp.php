@@ -7,7 +7,7 @@ $physicianOrNurse = $_POST["physicianOrNurse"];
 $checkUpType = $_POST["checkUpType"];
 $treatment = $_POST["treatment"];
 $findings = $_POST["findings"];
-$date = date("Y-m-d");
+$date = date("Y-m-d H:i:s");
 
 $sql = $con->query("INSERT INTO check_up_tbl (
   patient_id,
