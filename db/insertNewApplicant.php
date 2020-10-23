@@ -18,7 +18,7 @@ $weight = $_POST["weight"];
 $motherName = $_POST["motherName"];
 $fatherName = $_POST["fatherName"];
 $date = date("Y-m-d");
-$check = $con->query("SELECT * FROM patient_info_tbl WHERE lname = '$lname' AND fname = '$fname' AND mname = '$mname' AND gender = '$gender' AND bdate = '$bdate' AND age = '$age'");
+$check = $con->query("SELECT * FROM patient_info_tbl WHERE lname = '$lname' AND fname = '$fname' AND mname = '$mname' AND gender = '$gender' AND bday = '$bdate' AND age = '$age'");
 
 if (!$check) {
   $sql = $con->query("INSERT INTO
