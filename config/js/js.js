@@ -185,7 +185,9 @@ $(document).ready(function(){
       $("#bdate").val()
     );
     bday_day = bday.getDate();
-    bday_month = bday.getMonth();
+    bday_month =  ((bday.getMonth() + 1) >= 10)
+    ? (bday.getMonth() + 1)
+    : "0" + (bday.getMonth() + 1);
     bday_year = bday.getFullYear();
 
     if ($("#referringPhysicianOrNurse").val() !== "" && $("#lname").val() !== "" &&
@@ -266,7 +268,9 @@ $(document).ready(function(){
       $("#bdate").val()
     );
     bday_day = bday.getDate();
-    bday_month = bday.getMonth();
+    bday_month = ((bday.getMonth() + 1) >= 10)
+    ? (bday.getMonth() + 1)
+    : "0" + (bday.getMonth() + 1);
     bday_year = bday.getFullYear();
 
     $.ajax({
@@ -354,9 +358,13 @@ $(document).ready(function(){
           findings: $("#findings").val()
         },
         succes: function(data){
-            console.log(data);
-            $("#myModal").modal("hide");
-            location.reload(true);
+           
+
+            if (data.insert === 'success') {
+              window.location.replace("http://localhost/rms");
+            }else{
+              alert("Already in database...");
+            }
 
         },
         error: function(err){

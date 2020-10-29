@@ -18,9 +18,10 @@ $weight = $_POST["weight"];
 $motherName = $_POST["motherName"];
 $fatherName = $_POST["fatherName"];
 $date = date("Y-m-d H:i:s");
+
 $check = $con->query("SELECT * FROM patient_info_tbl WHERE lname = '$lname' AND fname = '$fname' AND mname = '$mname' AND gender = '$gender' AND bday = '$bdate' AND age = '$age'");
 
-if (!$check) {
+if (mysqli_num_rows($check) == 0) {
   $sql = $con->query("INSERT INTO
     patient_info_tbl
     (
@@ -68,6 +69,7 @@ if (!$check) {
       echo "Something went wrong...".mysqli_error($con);
     }
 }else{
+  // echo $con->error;
   echo json_encode(array("insert" => "dupplication"));
 }
 
