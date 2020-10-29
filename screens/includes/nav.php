@@ -1,11 +1,21 @@
+<?php
+            $branch_id = $_SESSION["branch"];
+            $branch_name = "";
+            $selectBranch = $con->query("SELECT * FROM branch_tbl WHERE id = '$branch_id'");
+            $result = $selectBranch->fetch_assoc();
+            $branch_name = $result['branch_name'];
+          ?>
+
 <div class="row nav-container">
   <div class="col-md-12">
     <div class="row">
       <div class="col-md-2">
-        <a href="index.php"> <i class="fab fa-buromobelexperte"></i>&nbsp;Dashboard</a>
+        <a href="index.php"> <i class="fab fa-buromobelexperte"></i>&nbsp; <?= !isset($_GET['id']) ? '': 'Back to ' ?>Dashboard</a>
       </div>
-
-      <div class="col-md-2">
+      <?php
+        if(! isset($_GET['id'])){
+          ?>
+            <div class="col-md-2">
         <a href="#" id="transaction"> <i class="fas fa-plus-square"></i>&nbsp;New Record</a>
       </div>
 
@@ -20,19 +30,19 @@
       <div class="col-md-2">
         <a href="#" id="maintenance"> <i class="fas fa-cogs"></i>&nbsp;Maintenance</a>
       </div>
-
+          
       <div class="col-md-2">
         <a href=".//db/logout.php" id="logout"> <i class="fas fa-power-off"></i>&nbsp;Logout, <?= $_SESSION['user'] ?> -
 
-          <?php
-            $branch_id = $_SESSION["branch"];
-            $branch_name = "";
-            $selectBranch = $con->query("SELECT * FROM branch_tbl WHERE id = '$branch_id'");
-            $result = $selectBranch->fetch_assoc();
-            echo "&nbsp;&nbsp;&nbsp;".$branch_name = $result['branch_name'];
-          ?>
+         <?= "&nbsp;&nbsp;&nbsp;".$branch_name; ?>
         </a>
       </div>
+          <?php
+        }
+      ?>
+      
+
+     
     </div>
 
   </div>

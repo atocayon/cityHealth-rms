@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 19, 2020 at 02:47 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.1
+-- Host: 127.0.0.1:3306
+-- Generation Time: Oct 29, 2020 at 02:06 AM
+-- Server version: 5.7.31
+-- PHP Version: 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -28,23 +27,25 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin_accounts`
 --
 
-CREATE TABLE `admin_accounts` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `admin_accounts`;
+CREATE TABLE IF NOT EXISTS `admin_accounts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `uname` varchar(120) NOT NULL,
   `pword` varchar(120) NOT NULL,
   `branch` int(11) NOT NULL,
   `addedBy` int(11) NOT NULL,
   `dateRegistered` date NOT NULL,
   `status` int(11) NOT NULL,
-  `active` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `active` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin_accounts`
 --
 
 INSERT INTO `admin_accounts` (`id`, `uname`, `pword`, `branch`, `addedBy`, `dateRegistered`, `status`, `active`) VALUES
-(1, 'admin', 'admin', 7, 1, '0000-00-00', 1, 0),
+(1, 'admin', 'admin', 7, 1, '0000-00-00', 1, 1),
 (2, 'sample', 'sample', 1, 1, '2020-02-17', 0, 0),
 (3, 'qwert', 'qwert', 3, 1, '2020-02-17', 0, 0),
 (4, 'tyu', 'tyu', 5, 1, '2020-02-17', 0, 0),
@@ -56,11 +57,13 @@ INSERT INTO `admin_accounts` (`id`, `uname`, `pword`, `branch`, `addedBy`, `date
 -- Table structure for table `branch_tbl`
 --
 
-CREATE TABLE `branch_tbl` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `branch_tbl`;
+CREATE TABLE IF NOT EXISTS `branch_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `branch_name` varchar(120) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `branch_tbl`
@@ -81,14 +84,16 @@ INSERT INTO `branch_tbl` (`id`, `branch_name`, `status`) VALUES
 -- Table structure for table `check_up_tbl`
 --
 
-CREATE TABLE `check_up_tbl` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `check_up_tbl`;
+CREATE TABLE IF NOT EXISTS `check_up_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `patient_id` int(11) NOT NULL,
   `referringPhysicianOrNurse` int(11) NOT NULL,
   `treatment` varchar(120) NOT NULL,
   `check_up_type` varchar(120) NOT NULL,
   `findings` varchar(120) NOT NULL,
-  `dateCheckUp` date NOT NULL DEFAULT current_timestamp()
+  `dateCheckUp` datetime NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -97,8 +102,9 @@ CREATE TABLE `check_up_tbl` (
 -- Table structure for table `patient_info_tbl`
 --
 
-CREATE TABLE `patient_info_tbl` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `patient_info_tbl`;
+CREATE TABLE IF NOT EXISTS `patient_info_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `lname` varchar(120) NOT NULL,
   `fname` varchar(120) NOT NULL,
   `mname` varchar(120) NOT NULL,
@@ -113,9 +119,10 @@ CREATE TABLE `patient_info_tbl` (
   `fathers_name` varchar(120) NOT NULL,
   `bplace` varchar(120) NOT NULL,
   `branch_id` int(11) NOT NULL,
-  `dateRecorded` date NOT NULL DEFAULT current_timestamp(),
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `dateRecorded` date NOT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `patient_info_tbl`
@@ -128,92 +135,26 @@ INSERT INTO `patient_info_tbl` (`id`, `lname`, `fname`, `mname`, `gender`, `bday
 -- --------------------------------------------------------
 
 --
--- Table structure for table `physicianOrNurse_tbl`
+-- Table structure for table `physicianornurse_tbl`
 --
 
-CREATE TABLE `physicianOrNurse_tbl` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `physicianornurse_tbl`;
+CREATE TABLE IF NOT EXISTS `physicianornurse_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `lname` varchar(120) NOT NULL,
   `fname` varchar(120) NOT NULL,
   `mname` varchar(120) NOT NULL,
   `title` varchar(120) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `physicianOrNurse_tbl`
+-- Dumping data for table `physicianornurse_tbl`
 --
 
-INSERT INTO `physicianOrNurse_tbl` (`id`, `lname`, `fname`, `mname`, `title`, `status`) VALUES
+INSERT INTO `physicianornurse_tbl` (`id`, `lname`, `fname`, `mname`, `title`, `status`) VALUES
 (1, 'sample', 'sample', 'sample', 'sample', 0);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `admin_accounts`
---
-ALTER TABLE `admin_accounts`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `branch_tbl`
---
-ALTER TABLE `branch_tbl`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `check_up_tbl`
---
-ALTER TABLE `check_up_tbl`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `patient_info_tbl`
---
-ALTER TABLE `patient_info_tbl`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `physicianOrNurse_tbl`
---
-ALTER TABLE `physicianOrNurse_tbl`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admin_accounts`
---
-ALTER TABLE `admin_accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `branch_tbl`
---
-ALTER TABLE `branch_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `check_up_tbl`
---
-ALTER TABLE `check_up_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `patient_info_tbl`
---
-ALTER TABLE `patient_info_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `physicianOrNurse_tbl`
---
-ALTER TABLE `physicianOrNurse_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

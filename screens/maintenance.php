@@ -65,8 +65,8 @@ include './/db/db.php';
                   <th>Name</th>
                   <th>Gender</th>
                   <th>Branch</th>
-                  <th>Status</th>
-                  <th>Action</th>
+                  <!-- <th>Status</th>
+                  <th>Action</th> -->
                 </tr>
               </thead>
               <?php
@@ -101,7 +101,7 @@ include './/db/db.php';
                        }
                         ?>
                    </td>
-                     <td><?php
+                     <!-- <td><?php
 
                       if ($row['status'] == 0) {
                         echo "Deactivated";
@@ -126,7 +126,7 @@ include './/db/db.php';
 
                        </div>
 
-                     </td>
+                     </td> -->
                    </tr>
                    <?php
                  }
@@ -166,7 +166,7 @@ include './/db/db.php';
               <thead>
                 <tr>
                   <th>Branch Name</th>
-                  <th>Status</th>
+                  <!-- <th>Status</th> -->
                   <th>Action</th>
                 </tr>
               </thead>
@@ -177,13 +177,13 @@ include './/db/db.php';
                   ?>
                   <tr>
                     <td><?= $row1['branch_name'] ?></td>
-                    <td><?php
+                    <!-- <td><?php
                       if ($row1['status'] == 0) {
                         echo "Deactivated";
                       }else{
                         echo "Active";
                       }
-                    ?></td>
+                    ?></td> -->
                     <td>
                       <div class="row">
                         <?php

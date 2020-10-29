@@ -58,7 +58,7 @@ $(document).ready(function(){
     $("#userManagement").css("text-decoration","none");
     $("#maintenance").css("text-decoration","none");
     $("#logout").css("text-decoration","none");
-
+    
     $("#transaction-container").show();
     $("#dashboard-container").hide();
     $("#maintenance-container").hide();

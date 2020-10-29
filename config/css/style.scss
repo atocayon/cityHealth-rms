@@ -1,3 +1,8 @@
+body{
+  padding: 0;
+  margin: 0;
+}
+
 .logo-container{
   position: fixed;
   width: 100vw;
@@ -15,9 +20,10 @@
 
 #header-container{
   background: #fff;
-  width: 100vw;
+  width: 100vw !important;
   box-shadow: 2px 2px 2px #E0E0E0;
   position: fixed;
+  z-index: 999;
 
   img{
     width: 5vw;
@@ -41,7 +47,7 @@
 
   margin-top: 6vh;
   padding-top: 10vh;
-
+  
   background: rgba(0,0,0, 0.8) !important;
   a{
     color: #fff;

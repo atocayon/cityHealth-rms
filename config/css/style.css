@@ -1,55 +1,74 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
 .logo-container {
   position: fixed;
   width: 100vw;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.5); }
+  background: rgba(255, 255, 255, 0.5);
+}
 
 #site-logo {
   width: 3vw;
   margin-left: 47vw;
-  margin-bottom: 2vh; }
+  margin-bottom: 2vh;
+}
 
 #header-container {
   background: #fff;
-  width: 100vw;
+  width: 100vw !important;
   -webkit-box-shadow: 2px 2px 2px #E0E0E0;
-  box-shadow: 2px 2px 2px #E0E0E0;
-  position: fixed; }
-  #header-container img {
-    width: 5vw;
-    padding-top: 1vh;
-    padding-bottom: 1vh; }
-  #header-container h1 {
-    padding-top: 3vh;
-    color: #4CAF50;
-    font-weight: bold;
-    font-size: 2vw;
-    text-shadow: 2px 2px 2px #BDBDBD; }
+          box-shadow: 2px 2px 2px #E0E0E0;
+  position: fixed;
+  z-index: 999;
+}
+#header-container img {
+  width: 5vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+#header-container h1 {
+  padding-top: 3vh;
+  color: #4CAF50;
+  font-weight: bold;
+  font-size: 2vw;
+  text-shadow: 2px 2px 2px #BDBDBD;
+}
 
 #dashboard {
-  text-decoration: underline; }
+  text-decoration: underline;
+}
 
 .nav-container {
   margin-top: 6vh;
   padding-top: 10vh;
-  background: rgba(0, 0, 0, 0.8) !important; }
-  .nav-container a {
-    color: #fff; }
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+.nav-container a {
+  color: #fff;
+}
 
 #dashboard-container {
-  margin-top: 8vh; }
+  margin-top: 8vh;
+}
 
 .patientInfo-container {
-  margin-top: 1vh; }
+  margin-top: 1vh;
+}
 
 .addNewRecord-container {
-  margin-top: 2vh; }
+  margin-top: 2vh;
+}
 
 .userManagement {
-  margin-top: 2vh; }
+  margin-top: 2vh;
+}
 
 #maintenance-container {
-  margin-top: 5vh; }
+  margin-top: 5vh;
+}
 
 .login-container {
   background-image: url("../../img/background.jpg");
@@ -58,18 +77,22 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  opacity: 0.5; }
-  .login-container label {
-    color: #fff; }
-  .login-container h1 {
-    text-align: center;
-    color: #fff;
-    font-weight: bold; }
-  .login-container .login {
-    border: 1px solid black;
-    background: rgba(0, 0, 0, 0.9) !important;
-    padding: 1vw;
-    border-radius: 30px;
-    width: 40vw;
-    position: fixed;
-    margin-left: 12vw; }
+  opacity: 0.5;
+}
+.login-container label {
+  color: #fff;
+}
+.login-container h1 {
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+}
+.login-container .login {
+  border: 1px solid black;
+  background: rgba(0, 0, 0, 0.9) !important;
+  padding: 1vw;
+  border-radius: 30px;
+  width: 40vw;
+  position: fixed;
+  margin-left: 12vw;
+}
