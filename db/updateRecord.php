@@ -2,7 +2,7 @@
 session_start();
 include 'db.php';
 
-
+$img = $_FILES['update_img']['name'];
 $branch = $_POST["branch"];
 $patient_id = $_POST["patient_id"];
 $lname = $_POST["lname"];
@@ -33,12 +33,14 @@ $sql = $con->query("UPDATE patient_info_tbl
   weight = '$weight',
   mothers_name = '$motherName',
   fathers_name = '$fatherName',
-  bplace = '$bplace'
+  bplace = '$bplace',
+  img = '$img'
   WHERE
   id = '$patient_id'
 ");
 
 if ($sql) {
+  move_uploaded_file($_FILES['update_img']['tmp_name'], "/img/uploads".$img);
   echo json_encode(array("update" => "success"));
 }else{
   echo mysqli_error($con);

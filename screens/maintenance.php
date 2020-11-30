@@ -30,12 +30,10 @@ include './/db/db.php';
 
         <br>
         <div class="">
-          <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#managePhysicianOrNurseModal">Manage Physician/Nurse</button>
+          <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#managePhysicianOrNurseModal">Manage Doctor/Nurse</button>
         </div>
         <br>
-        <div class="">
-            <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#manageAdminModal">Manage Admin Accounts</button>
-        </div>
+       
       </div>
       <div class="col-md-4">
 
@@ -228,7 +226,7 @@ include './/db/db.php';
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Manage Physician or Nurse</h4>
+        <h4 class="modal-title">Manage Doctor or Nurse</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -246,12 +244,13 @@ include './/db/db.php';
             </thead>
             <tbody>
               <?php
-                $sql2 = $con->query("SELECT concat(fname, ' ' ,LEFT(mname, 1),'. ', lname) as name, title, status,id FROM physicianOrNurse_tbl");
+                $sql2 = $con->query("SELECT a.id, a.name, a.title, a.uname,a.dateRegistered, a.status FROM admin_accounts a");
                 while($row2 = mysqli_fetch_array($sql2)){
                   ?>
                     <tr>
                       <td><?= $row2['name'] ?></td>
                       <td><?= $row2['title'] ?></td>
+                      
                       <td>
                         <?php
                           if ($row2['status'] == 0) {
@@ -293,14 +292,41 @@ include './/db/db.php';
 
             </div>
             <div class="col-md-8">
-              <input type="text" id="title" class="form-control" placeholder="Title/Position">
+              <br />
+
+              <img id="physician-img" alt="Avatar" src=".//img/uploads/default.png" style="display: block; margin: auto;width:  150px;
+    height: 150px;border-radius: 100px;
+    object-fit: cover;" />
+              <br/>
+              <input type="file" accept="image/*" id="upload_physician_img" class="form-control"  />
+              <br/>
+              <br/>
+              <select class="form-control" id="userBranch">
+                <option value="">-- Select Branch --</option>
+                <?php 
+                  $sql = $con->query("SELECT * FROM branch_tbl WHERE status = 1");
+                  while($row = mysqli_fetch_array($sql)){
+                    ?>
+                      <option value="<?= $row['id'] ?>"><?= $row['branch_name'] ?></option>
+                    <?php
+                  }
+                
+                ?>
+              </select>
+              <br/>
+              <select id="title" class="form-control">
+                  <option value=""> -- Select Title/Position --</option>
+                  <option value="doctor">Doctor</option>
+                  <option value="nurse">Nurse</option>
+              </select>
+                <br>
+              <input type="text" id="physician_name" class="form-control" placeholder="Full Name">
               <br>
-              <input type="text" id="physician_fname" class="form-control" placeholder="Firstname">
+              <input type="text" id="physician_uname" class="form-control" placeholder="Username">
               <br>
-              <input type="text" id="physician_mname" class="form-control" placeholder="Middle name">
+              <input type="password" id="physician_pword" class="form-control" placeholder="Password">
               <br>
-              <input type="text" id="physician_lname" class="form-control" placeholder="Lastname">
-              <br>
+              <input type="password" id="physician_cpword" class="form-control" placeholder="Confirm Password">
 
             </div>
             <div class="col-md-2">
@@ -325,103 +351,3 @@ include './/db/db.php';
   </div>
 </div>
 
-<!-- The Modal -->
-<div class="modal fade" id="manageAdminModal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Manage Admin</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <div class="tableManageAdmin-container">
-          <table class="table" id="tbl-manageAdmin">
-            <thead>
-              <tr>
-                <th>Username</th>
-                <?php
-                  $sql3 = $con->query("SELECT * FROM admin_accounts");
-                  $res_sql3 = $sql3->fetch_assoc();
-                  if ($res_sql3['branch'] == '7') {
-                    ?>
-                      <th>Branch</th>
-                    <?php
-                  }
-                 ?>
-                <th>Added By</th>
-                <th>Date Registered</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-                while ($row3 = mysqli_fetch_array($sql3)) {
-                  ?>
-                    <tr>
-                      <td><?= $row3['uname'] ?></td>
-                      <?php
-                        if ($res_sql3['branch'] == '7') {
-                          ?>
-                            <td>
-                              <?php
-                                $branchID = $row3['branch'];
-                                $select_branch = $con->query("SELECT * FROM branch_tbl WHERE id = '$branchID'");
-                                $res_selectBranch = $select_branch->fetch_assoc();
-                                  echo $res_selectBranch['branch_name'];
-
-                              ?>
-                            </td>
-                          <?php
-                        }
-                      ?>
-                      <td>
-                        <?php
-                          $userID = $row3['addedBy'];
-                          $select_user = $con->query("SELECT * FROM admin_accounts WHERE id = '$userID'");
-                          $res_selectUser = $select_user->fetch_assoc();
-                          echo $res_selectUser['uname'];
-                        ?>
-                      </td>
-                      <td>
-                        <?= $row3['dateRegistered'] ?>
-                      </td>
-                      <td>
-                        <?php
-                          if ($row3['status'] == 0) {
-                            echo "Deactivated";
-                          }else{
-                            echo "Active";
-                          }
-                        ?>
-                      </td>
-                      <td>
-                        <?php
-                          if ($row3['status'] == 0) {
-                            ?>
-                              <a href=".//db/activateAdmin.php?id=<?= $row3['id'] ?>" class="btn btn-sm btn-primary "  onclick="return confirm('Are you sure?')">Activate</a>
-                              <a href=".//db/deleteAdmin.php?id=<?= $row3['id'] ?>" class="btn btn-sm btn-outline-danger " onclick="return confirm('Are you sure?')">Delete</a>
-                            <?php
-                          }else{
-                            ?>
-                              <a href=".//db/deactivateAdmin.php?id=<?= $row3['id'] ?>" class="btn btn-sm btn-warning btn-branchDeactivate" onclick="return confirm('Are you sure?')">Deactivate</a>
-                            <?php
-                          }
-                        ?>
-                      </td>
-                    </tr>
-                  <?php
-                }
-              ?>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>

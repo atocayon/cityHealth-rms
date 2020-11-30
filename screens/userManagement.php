@@ -6,55 +6,7 @@ $user = $_SESSION['user'];
   <div class="row">
 
     <div class="col-md-8">
-      <!-- The Modal -->
-      <div class="modal" id="userManagementModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Add New User</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-              <label>Branch:</label>
-              <select class="form-control" id="userBranch">
-                      <option value="">-- Select Branch --</option>
-                      <?php
-
-
-                      $sql = $con->query("SELECT * FROM branch_tbl WHERE status = 1");
-                      while($row = mysqli_fetch_array($sql)){
-                        ?>
-                          <option value="<?= $row['id'] ?>"><?= $row['branch_name'] ?></option>
-                        <?php
-                      }
-                       ?>
-                    </select>
-                    <br>
-                <label>Username:</label>
-                <input type="text" id="userName" class="form-control">
-                <br>
-                <label>Password:</label>
-                <input type="password" id="userPassword" class="form-control">
-                <?php
-                $select = $con->query("SELECT * FROM admin_accounts WHERE uname = '$user'");
-                $res_select = $select->fetch_assoc();
-                ?>
-                <input type="text" value="<?= $res_select['id'] ?>" class="form-control" hidden id="sessionUser">
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" id="save">Save</button>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
+  
       <div class="row">
         <div class="col-md-12">
           <?php
@@ -62,6 +14,14 @@ $user = $_SESSION['user'];
             $sql1 = $con->query("SELECT * FROM admin_accounts WHERE uname = '$user'");
             $res = $sql1->fetch_assoc();
           ?>
+          
+          <img id="physician_img" alt="Avatar" src=".//img/uploads/<?= $res['img'] ?>" style="display: block; margin: auto;width:  150px;
+    height: 150px;border-radius: 100px;
+    object-fit: cover;" />
+    <br/>
+  <input id="update_physician_img" type="file" accept="image/*" disabled style="margin-left: 15vw" />
+    <br/>
+    <br/>
           <label>Branch:</label>
           <?php
           $branch = $res['branch'];
@@ -78,6 +38,11 @@ $user = $_SESSION['user'];
             $res_sql3 = $sql3->fetch_assoc();
           ?>
           <input type="text" value="<?= $res_sql3['uname'] ?>" disabled class="form-control">
+          
+          <label>Title/Position:</label>
+          <input type="text" value="<?= $res['title'] ?>" disabled id="user-Title" class="form-control" />
+          <label>Full Name:</label>
+          <input type="text" value="<?= $res['name'] ?>" disabled id="user-Name" class="form-control" />
           <label>Username:</label>
           <input type="text" value="<?= $res['uname'] ?>" disabled id="user-Username" class="form-control">
           <label>Password:</label>
@@ -86,8 +51,8 @@ $user = $_SESSION['user'];
           <br>
           <button type="button" id="btn-editUserInfo" class="btn btn-primary" title="Update Information"> <i class="fas fa-user-edit"></i> </button>
           <button type="button" id="btn-updateUserInfo" class="btn btn-primary" title="Save" style="display:none"> <i class="fas fa-save"></i> </button>
-          <button type="button" data-toggle="modal" data-target="#userManagementModal" class="btn btn-success" title="Add New User" id="btn-addNewUser"> <i class="fas fa-plus"></i> </button>
-
+          <br/>
+          <br/>
         </div>
       </div>
 
@@ -131,3 +96,5 @@ $user = $_SESSION['user'];
     </div>
   </div>
 </div>
+
+

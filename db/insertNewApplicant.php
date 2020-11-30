@@ -3,6 +3,7 @@ session_start();
 date_default_timezone_set('Asia/Taipei');
 include "db.php";
 
+$img = $_FILES['patient_img']['name'];
 $branch_id = $_POST["branch_id"];
 $lname = $_POST["lname"];
 $fname = $_POST["fname"];
@@ -40,7 +41,8 @@ if (mysqli_num_rows($check) == 0) {
       bplace,
       branch_id,
       dateRecorded,
-      status
+      status,
+      img
     )
     VALUES
     (
@@ -59,11 +61,13 @@ if (mysqli_num_rows($check) == 0) {
       '$bplace',
       '$branch_id',
       '$date',
-      1
+      1,
+      '$img'
     )
     ");
 
     if ($sql) {
+      move_uploaded_file($_FILES['patient_img']['tmp_name'], '/img/uploads/'.$img);
       echo json_encode(array("insert" => "success"));
     }else{
       echo "Something went wrong...".mysqli_error($con);

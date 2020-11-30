@@ -13,7 +13,7 @@ session_unset();
 // destroy the session
 session_destroy();
 
-header("Location: http://localhost/rms/");
+header("Location: http://localhost/cityHealth-rms/");
 }
 
 

@@ -1,113 +1,78 @@
 <div class="col-md-12 addNewRecord-container">
-  <table>
-    <tr>
 
-      <th style="text-align: right">Branch:</th>
-      <td colspan="4">
+  <div>
+    <img id="patient_img" src=".//img/uploads/default.png" alt="Avatar" style="display: block; margin: auto;width:  150px;
+    height: 150px;border-radius: 100px;
+    object-fit: cover;" />
+   <br/>
+   <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+    
+    <input type="file" id="upload_patient_img" accept="image/*;capture=camera" capture class="form-control" />
+    </div>
+    <div class="col-md-4"></div>
+   </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+    <br/>
+        <label>Branch Location</label>
         <input type="text" class="form-control" value="<?= $branch_name ?>" disabled>
         <input type="text" class="form-control" value="<?= $_SESSION['branch'] ?>" hidden id="branch">
-      </td>
-    </tr>
-
-    <tr>
-      <td rowspan="1"><br></td>
-    </tr>
-
-    <tr>
-      <th>Patient Name:</th>
-      <td colspan="2">
+        <br/>
+        <label>Patient Name</label>
         <input type="text" class="form-control" placeholder="Lastname" id="lname">
-      </td>
-
-      <td colspan="2">
+        <br/>
         <input type="text" class="form-control" placeholder="Firstname" id="fname">
-      </td>
-
-      <td>
+        <br/>
         <input type="text" class="form-control" placeholder="Middle name" id="mname">
-      </td>
-    </tr>
+        <br/>
 
-    <tr>
-      <td rowspan="1"><br></td>
-    </tr>
-
-    <tr>
-      <th>Gender:</th>
-      <td>
-        <input type="text" class="form-control" id="gender">
-      </td>
-
-      <th style="text-align: right">Age:</th>
-      <td>
+        <label>Gender</label>
+        <select id="gender" class="form-control">
+          <option value=""></option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <optioN value="others">Others</optioN>
+        </select>
+        <!-- <input type="text" class="form-control" id="gender"> -->
+        <br/>
+        <label>Age</label>
         <input type="number" class="form-control" id="age">
-      </td>
-
-      <th style="text-align: right">Birthdate:</th>
-      <td>
+        <br/>
+        <label>Birthday</label>
         <input type="date" class="form-control" id="bdate">
-      </td>
-    </tr>
-
-    <tr>
-      <td rowspan="1"><br></td>
-    </tr>
-
-    <tr>
-      <th>Home Address:</th>
-      <td>
+        <br/>
+        <label>Home Address</label>
         <input type="text" class="form-control" id="homeAddress">
-      </td>
-
-      <th style="text-align: right">Birthplace:</th>
-      <td>
-        <input type="text" class="form-control" id="bplace">
-      </td>
-
-      <th style="text-align: right">Marital Status:</th>
-      <td>
+        <br/>
+        <label>Marital Status</label>
         <input type="text" class="form-control" id="maritalStatus">
-      </td>
-    </tr>
-
-    <tr>
-      <td rowspan="1"><br></td>
-    </tr>
-
-    <tr>
-      <th>Height:</th>
-      <td>
+        <br/>
+        <label>Height (Kg)</label>
         <input type="text" class="form-control" id="height">
-      </td>
-
-      <th style="text-align: right">Weight:</th>
-      <td>
+        <br/>
+        <label>Weight (Kg)</label>
         <input type="text" class="form-control" id="weight">
-      </td>
-    </tr>
-
-    <tr>
-      <td rowspan="1"><br></td>
-    </tr>
-
-    <tr>
-      <th>Mother's Name:</th>
-      <td>
+        <br/>
+        <label>Mother's Full name</label>
         <input type="text" class="form-control" id="motherName">
-      </td>
-
-      <th style="text-align: right">Father's Name:</th>
-      <td>
+        <br/>
+        <label>Father's Full name</label>
         <input type="text" class="form-control" id="fatherName">
-      </td>
-    </tr>
-    <tr>
-      <td rowspan="1"><br></td>
-    </tr>
-    <tr>
-      <th colspan="6" style="text-align: right">
-        <button type="button" name="button" class="btn btn-primary" id="btn-submitNewRecord">Submit</button>
-      </th>
-    </tr>
-  </table>
+
+        <br/>
+
+        <button type="button" name="button" class="btn btn-primary" id="btn-submitNewRecord" style="width: 100%">Submit</button>
+        <br/>
+        <br/>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+
 </div>

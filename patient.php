@@ -40,137 +40,111 @@ include './/db/db.php';
 
             <div class="row patientInfo-container">
               <div class="col-md-12">
-                <table>
+                <div class="row">
+                <div class="col-md-3">
+                  <img id="patient_img_update" src=".//img/uploads/<?= $fetch['img'] ?>" alt="Avatar" style="width:  250px;
+                  height: 250px;
+                  object-fit: cover;" />
+                  <br/>
+                  <input type="file" class="form-control"  accept="image/*" capture id="update_patient_img" disabled />
+                  <br/>
                   <?php
                       if ($branch_id === '7') {
                         ?>
-                          <tr>
-
-                            <th style="text-align: right">Branch:</th>
-                            <td colspan="2">
-                              <input type="text" class="form-control" value="<?= $branch_name ?>" disabled>
-                              <input type="text" class="form-control" value="<?= $_SESSION['branch'] ?>" hidden id="branch">
-                              <input type="text"  value="<?= $id ?>" id="patient_id" hidden>
-                            </td>
-                          </tr>
+                        <label>Health Center Location</label>
+                         <input type="text" class="form-control" value="<?= $branch_name ?>" disabled>
+                         <input type="text" class="form-control" value="<?= $_SESSION['branch'] ?>" hidden id="branch">
+                         <input type="text"  value="<?= $id ?>" id="patient_id" hidden>
+                         
                         <?php
                       }
                   ?>
+                <label>Last Name</label>
+                <input type="text" class="form-control" placeholder="Lastname" id="lname" disabled value="<?= $fetch['lname'] ?>">
+                
+                <label>First Name</label>
+                <input type="text" class="form-control" placeholder="Firstname" id="fname" disabled value="<?= $fetch['fname'] ?>">
+                
+                <label>Middle Name</label>
+                <input type="text" class="form-control" placeholder="Middle name" id="mname" disabled value="<?= $fetch['mname'] ?>">
+                <label>Birthdate</label>      
+                <input type="date" class="form-control" id="bdate" disabled value="<?= $fetch['bday'] ?>">
+                
+                  <label>Age</label>
+                  <input type="number" class="form-control" id="age" disabled value="<?= $fetch['age'] ?>">
+                  <label>Gender</label>
+                  <input type="text" class="form-control" id="gender" disabled value="<?= $fetch['gender'] ?>">
+                  <label>Birthplace</label>
+                  <input type="text" class="form-control" id="bplace" disabled value="<?= $fetch['bplace'] ?>">
+                
+                  <label>Marital Status</label>
+                  <input type="text" class="form-control" id="maritalStatus" disabled value="<?= $fetch['marital_status'] ?>">
 
-                  <tr>
-                    <td rowspan="1"><br></td>
-                  </tr>
+                  <label>Height</label>
+                   <input type="text" class="form-control" id="height" disabled value="<?= $fetch['height'] ?>">
 
-                  <tr>
-                    <th>Patient Name:</th>
-                    <td colspan="2">
-                      <input type="text" class="form-control" placeholder="Lastname" id="lname" disabled value="<?= $fetch['lname'] ?>">
-                    </td>
+                  <label>Weight</label>
+                  <input type="text" class="form-control" id="weight" disabled value="<?= $fetch['weight'] ?>">
 
-                    <td colspan="2">
-                      <input type="text" class="form-control" placeholder="Firstname" id="fname" disabled value="<?= $fetch['fname'] ?>">
-                    </td>
+                  <label>Mother's Name</label>
+                  <input type="text" class="form-control" id="motherName" disabled value="<?= $fetch['mothers_name'] ?>">
+                  <label>Father's Name</label>
+                  <input type="text" class="form-control" id="fatherName" disabled value="<?= $fetch['fathers_name'] ?>">
+                  <label>Address</label>
+                  <input type="text" class="form-control" id="homeAddress" disabled value="<?= $fetch['address'] ?>">
 
-                    <td>
-                      <input type="text" class="form-control" placeholder="Middle name" id="mname" disabled value="<?= $fetch['mname'] ?>">
-                    </td>
-                  </tr>
+                  <br/>
+                  <br/>   
+                  <button type="button" name="button" class="btn btn-default" id="btn-editRecord">Edit Info</button>
+                  <button type="button" name="button" class="btn btn-default" id="btn-updateRecord" style="display:none;">Update/Save</button>
+                  <button type="button" name="button" class="btn btn-danger" id="btn-deleteRecord" onclick="return confirm('Are you sure?')">Delete Record</button>
+                    <br/>
+                    <br/>
+                </div>
+                <div class="col-md-9">
 
-                  <tr>
-                    <td rowspan="1"><br></td>
-                  </tr>
+                <button type="button" name="button" class="btn btn-primary" id="btn-checkUp" data-toggle="modal" data-target="#myModal">Add Record</button>
+                
+                <br/>
+                <br/>
 
-                  <tr>
-                    <th>Gender:</th>
-                    <td>
-                      <input type="text" class="form-control" id="gender" disabled value="<?= $fetch['gender'] ?>">
-                    </td>
+                <table class="table table-checkup-records">
+                  <thead>
+                    <tr>
+                      <th>Referring Doctor/Nurse</th>
+                      <th>Check Up Type</th>
+                      <th>Treatment</th>
+                      <th>Findings</th>
+                      <th>Date Check Up</th>
+                      <th>Attachment</th>
+                    </tr>
+                  </thead>
 
-                    <th style="text-align: right">Age:</th>
-                    <td>
-                      <input type="number" class="form-control" id="age" disabled value="<?= $fetch['age'] ?>">
-                    </td>
+                  <tbody>
+                    <?php
+                      $records = $con->query("SELECT CONCAT(b.name, ' ', ', ',IF(b.title = 'doctor', 'MD', 'RN')) AS referringPhysicianOrNurse, a.check_up_type, a.treatment, a.findings, DATE_FORMAT(a.dateCheckUp, '%M %d, %Y @ %h:%i:%s %p ') AS dateCheckUp, a.attachment  FROM check_up_tbl a LEFT JOIN admin_accounts b ON a.referringPhysicianOrNurse = b.id WHERE a.patient_id = '$id' ORDER BY a.dateCheckUp DESC");
+                   
+                        while($res = mysqli_fetch_array($records)){
+                          ?>
+                            <tr>
+                              <td><?= $res['referringPhysicianOrNurse'] ?></td>
+                              <td><?= $res['check_up_type'] ?></td>
+                              <td><?= $res['treatment'] ?></td>
+                              <td><?= $res['findings'] ?></td>
+                              <td><?= $res['dateCheckUp'] ?></td>
+                              <td><a href=".//img/uploads/<?= $res['attachment'] ?>" download><?= $res['attachment'] ?></a></td>
+                            </tr>
+                          <?php
+                        }
+                      
+                     
+                    ?>
+                  </tbody>
 
-                    <th style="text-align: right">Birthdate:</th>
-                    <td>
-                      <input type="date" class="form-control" id="bdate" disabled value="<?= $fetch['bday'] ?>">
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td rowspan="1"><br></td>
-                  </tr>
-
-                  <tr>
-                    <th>Home Address:</th>
-                    <td>
-                      <input type="text" class="form-control" id="homeAddress" disabled value="<?= $fetch['address'] ?>">
-                    </td>
-
-                    <th style="text-align: right">Birthplace:</th>
-                    <td>
-                      <input type="text" class="form-control" id="bplace" disabled value="<?= $fetch['bplace'] ?>">
-                    </td>
-
-                    <th style="text-align: right">Marital Status:</th>
-                    <td>
-                      <input type="text" class="form-control" id="maritalStatus" disabled value="<?= $fetch['marital_status'] ?>">
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td rowspan="1"><br></td>
-                  </tr>
-
-                  <tr>
-                    <th>Height:</th>
-                    <td>
-                      <input type="text" class="form-control" id="height" disabled value="<?= $fetch['height'] ?>">
-                    </td>
-
-                    <th style="text-align: right">Weight:</th>
-                    <td>
-                      <input type="text" class="form-control" id="weight" disabled value="<?= $fetch['weight'] ?>">
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td rowspan="1"><br></td>
-                  </tr>
-
-                  <tr>
-                    <th>Mother's Name:</th>
-                    <td>
-                      <input type="text" class="form-control" id="motherName" disabled value="<?= $fetch['mothers_name'] ?>">
-                    </td>
-
-                    <th style="text-align: right">Father's Name:</th>
-                    <td>
-                      <input type="text" class="form-control" id="fatherName" disabled value="<?= $fetch['fathers_name'] ?>">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td rowspan="1"><br></td>
-                  </tr>
-                  <tr>
-                    <th colspan="6" style="text-align: right">
-                      <button type="button" name="button" class="btn btn-default" id="btn-editRecord">Edit</button>
-                        <button type="button" name="button" class="btn btn-default" id="btn-updateRecord" style="display:none;">Update</button>
-                    </th>
-                    <th></th>
-                    <th></th>
-
-                    <th>
-                      <button type="button" name="button" class="btn btn-danger" id="btn-deleteRecord" onclick="return confirm('Are you sure?')">Delete</button>
-                    </th>
-
-                    <th></th>
-                    <th></th>
-                    <th>
-                      <button type="button" name="button" class="btn btn-primary" id="btn-checkUp" data-toggle="modal" data-target="#myModal">Check Up</button>
-                    </th>
-                  </tr>
                 </table>
+                </div>
+                </div>
+                
               </div>
             </div>
 
@@ -186,7 +160,8 @@ include './/db/db.php';
 
                       <!-- Modal Header -->
                       <div class="modal-header">
-                        <b><h4 class="modal-title"> <i class="fas fa-user"></i> <?= $fetch['fname'] ?>&nbsp;&nbsp;<?= $fetch['mname'] ?>&nbsp;&nbsp;<?= $fetch['lname'] ?></h4></b>
+                        Record Medication/Check Up
+                        <!-- <b><h4 class="modal-title"> <i class="fas fa-user"></i> <?= $fetch['fname'] ?>&nbsp;&nbsp;<?= $fetch['mname'] ?>&nbsp;&nbsp;<?= $fetch['lname'] ?></h4></b> -->
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
 
@@ -194,73 +169,41 @@ include './/db/db.php';
                       <div class="modal-body">
                         <div class="row">
                           <div class="col-md-12">
-                            <table>
-                              <tr>
-                                <td>Referring Physician/Nurse: </td>
-                                <td>
-                                  <select class="form-control" id="physicianOrNurse">
-                                    <option value="">--Select--</option>
-                                    <?php
-                                      $select = $con->query("SELECT * FROM physicianOrNurse_tbl");
-                                      while ($row = mysqli_fetch_array($select)) {
-                                        ?>
-                                        <option value="<?= $row['id'] ?>"> <?= $row['fname'] ?>&nbsp;&nbsp;<?= $row['mname'] ?>&nbsp;&nbsp;<?= $row['lname'] ?>&nbsp;&nbsp;(<?= $row['title'] ?>)</option>
-                                        <?php
-                                      }
-                                    ?>
-                                  </select>
+                          <label>Type</label>
+                                        <select class="form-control" id="checkUpType">
+                                          <option value="">---Select---</option>
+                                          <?php 
+                                            if($fetch['gender'] === "female" && $_SESSION['title'] === "doctor"){
+                                              ?>
+                                              <option value="PRENATAL">Prenatal</option>
+                                              <option value="BIRTHING">Birthing</option>
+                                              
+                                              <?php
+                                            }
+                                          ?>
+                                          <option value="REGULAR_CHECKUP">Regular Checkup</option>
+                                          <?php 
+                                            if($fetch['age'] < 12 && $_SESSION['title'] === "nurse" ){
+                                              ?>
+                                                <option value="IMMUNIZATION">Child Immunization</option>    
+                                              <?php 
+                                            }
+                                          ?>
+                                          
+                                        </select>
 
-                                </td>
-                              </tr>
+                                        <br/>
 
-                              <tr>
-                                <td rowspan="1"><br></td>
-                              </tr>
-
-
-                              <tr>
-                                <td>Check-Up Type:</td>
-                                <td>
-                                  <select class="form-control" id="checkUpType">
-                                    <option value="">---Select---</option>
-                                    <option value="PRENATAL">Prenatal</option>
-                                    <option value="ADULT">Adult</option>
-                                    <option value="CHILD">Child</option>
-                                  </select>
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td rowspan="1"><br></td>
-                              </tr>
-
-
-                              <tr>
-                                <td>
-                                  Treatment:
-                                </td>
-                                <td>
-                                  <textarea name="name" rows="8" class="form-control" id="treatment"></textarea>
-
-                                </td>
-                              </tr>
-
-
-
-                              <tr>
-                                <td rowspan="1"><br></td>
-                              </tr>
-
-                              <tr>
-                                <td>
-                                  Findings:
-                                </td>
-                                <td>
-                                  <input name="name" class="form-control" id="findings"></input>
-
-                                </td>
-                              </tr>
-                            </table>
+                                        <label>Treatment</label>
+                                    <textarea name="name" rows="8" class="form-control" id="treatment"></textarea>
+                                    <br/>
+                                    <label>Findings</label>
+                                    <input name="name" class="form-control" id="findings"></input>
+                                    <br/>
+                                    <label>Attach Scanned Form</label>
+                                    <input type="file" id="scanned_form" accept=".pdf, .docx, .doc" class="form-control" />
+                          
+                              
                           </div>
                         </div>
                       </div>
@@ -274,46 +217,7 @@ include './/db/db.php';
                   </div>
                 </div>
 
-                <br>
-                <br>
-                <br>
-                <center>
-                  <h4>
-                    <b>Check up Record</b>
-                  </h4>
-                </center>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>Referring Physician/Nurse</th>
-                      <th>Check Up Type</th>
-                      <th>Treatment</th>
-                      <th>Findings</th>
-                      <th>Date Check Up</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <?php
-                      $records = $con->query("SELECT CONCAT(b.mname, ' ', LEFT(b.fname, 1),'.', ' ', b.lname , ' ','(',b.title,')' ) AS referringPhysicianOrNurse, a.check_up_type, a.treatment, a.findings, DATE_FORMAT(a.dateCheckUp, '%M %d, %Y @ %h:%i:%s %p ') AS dateCheckUp  FROM check_up_tbl a LEFT JOIN physicianornurse_tbl b ON a.referringPhysicianOrNurse = b.id WHERE a.patient_id = '$id' ORDER BY a.dateCheckUp DESC");
-                   
-                        while($res = mysqli_fetch_array($records)){
-                          ?>
-                            <tr>
-                              <td><?= $res['referringPhysicianOrNurse'] ?></td>
-                              <td><?= $res['check_up_type'] ?></td>
-                              <td><?= $res['treatment'] ?></td>
-                              <td><?= $res['findings'] ?></td>
-                              <td><?= $res['dateCheckUp'] ?></td>
-                            </tr>
-                          <?php
-                        }
-                      
-                     
-                    ?>
-                  </tbody>
-
-                </table>
+              
               </div>
             </div>
 
