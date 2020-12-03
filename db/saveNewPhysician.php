@@ -21,7 +21,7 @@ if (mysqli_num_rows($check) > 0) {
   ");
 
   if ($query) {
-       move_uploaded_file($_FILES['physician_img']['tmp_name'], '/img/uploads/'.$_FILES['physician_img']['name']);
+       move_uploaded_file($_FILES['physician_img']['tmp_name'], '../img/uploads/'.$_FILES['physician_img']['name']);
 
     echo json_encode(array("insert" => "success"));
   }

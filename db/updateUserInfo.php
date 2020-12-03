@@ -17,7 +17,7 @@ if ($count != 0) {
 }else{
   $sql = $con->query("UPDATE admin_accounts SET name='$name', title='$title', uname = '$username', pword = '$password', img='$img' WHERE id = '$sessionUser'");
   if ($sql) {
-    move_uploaded_file($_FILES['physician_img']['tmp_name'], '/img/uploads/'.$_FILES['physician_img']['name']);
+    move_uploaded_file($_FILES['physician_img']['tmp_name'], '../img/uploads/'.$_FILES['physician_img']['name']);
     echo json_encode(array("update" => "success"));
   }else{
     echo mysqli_error($con);

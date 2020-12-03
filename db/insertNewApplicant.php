@@ -67,7 +67,8 @@ if (mysqli_num_rows($check) == 0) {
     ");
 
     if ($sql) {
-      move_uploaded_file($_FILES['patient_img']['tmp_name'], '/img/uploads/'.$img);
+            move_uploaded_file($_FILES['patient_img']['tmp_name'], '../img/uploads/'.$img);
+
       echo json_encode(array("insert" => "success"));
     }else{
       echo "Something went wrong...".mysqli_error($con);

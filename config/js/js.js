@@ -4,7 +4,7 @@ $(document).ready(function () {
     //Login
     if ($("#uname").val() !== "" && $("#pword").val() !== "") {
       $.ajax({
-        url: ".//db/login-action.php",
+        url: "http://localhost/cityHealth-rms/db/login-action.php",
         type: "POST",
         dataType: "json",
         data: {
@@ -12,14 +12,10 @@ $(document).ready(function () {
           pword: $("#pword").val(),
         },
         success: function (data) {
-          console.log(data.login);
-          if (data.login === "success") {
-            location.reload(true);
-          }
-
           if (data.login === "failed") {
             alert("Ops! It seems that you are an unregistered user...");
           }
+          location.reload(true);
         },
         error: function (err) {
           alert(err);
@@ -235,18 +231,18 @@ $(document).ready(function () {
       form_data.append("weight", $("#weight").val());
       form_data.append("motherName", $("#motherName").val());
       form_data.append("fatherName", $("#fatherName").val());
+
+      console.log(patient_img);
       $.ajax({
-        url: ".//db/insertNewApplicant.php",
+        url: "http://localhost/cityHealth-rms/db/insertNewApplicant.php",
         type: "POST",
-        dataType: "json",
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "text",
         data: form_data,
         success: function (data) {
-          console.log(data);
-          if (data.insert === "success") {
-            window.location.replace("http://localhost/cityHealth-rms");
-          } else {
-            alert("Already in database...");
-          }
+          window.location.replace("http://localhost/cityHealth-rms");
         },
         error: function (err) {
           alert(err);
@@ -319,9 +315,12 @@ $(document).ready(function () {
     form_data.append("motherName", $("#motherName").val());
     form_data.append("fatherName", $("#fatherName").val());
     $.ajax({
-      url: ".//db/updateRecord.php",
+      url: "http://localhost/cityHealth-rms/db/updateRecord.php",
       type: "POST",
-      dataType: "json",
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "text",
       data: form_data,
       success: function (data) {
         $("#referringPhysicianOrNurse").prop("disabled", true);
@@ -353,7 +352,7 @@ $(document).ready(function () {
 
   $("#btn-deleteRecord").click(function () {
     $.ajax({
-      url: ".//db/deleteRecord.php",
+      url: "http://localhost/cityHealth-rms/db/deleteRecord.php",
       type: "POST",
       dataType: "json",
       data: {
@@ -384,16 +383,15 @@ $(document).ready(function () {
       form_data.append("treatment", $("#treatment").val());
       form_data.append("findings", $("#findings").val());
       $.ajax({
-        url: ".//db/recordCheckUp.php",
+        url: "http://localhost/cityHealth-rms/db/recordCheckUp.php",
         type: "POST",
-        dataType: "json",
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "text",
         data: form_data,
         succes: function (data) {
-          if (data.insert === "success") {
-            window.location.replace("http://localhost/cityHealth-rms");
-          } else {
-            alert("Already in database...");
-          }
+          window.location.replace("http://localhost/cityHealth-rms");
         },
         error: function (err) {
           alert(err);
@@ -438,7 +436,7 @@ $(document).ready(function () {
       $("#userPassword").val() !== ""
     ) {
       $.ajax({
-        url: ".//db/insertNewUser.php",
+        url: "http://localhost/cityHealth-rms/db/insertNewUser.php",
         type: "POST",
         dataType: "json",
         data: {
@@ -503,9 +501,12 @@ $(document).ready(function () {
     form_data.append("username", $("#user-Username").val());
     form_data.append("password", $("#user-Password").val());
     $.ajax({
-      url: ".//db/updateUserInfo.php",
+      url: "http://localhost/cityHealth-rms/db/updateUserInfo.php",
       type: "POST",
-      dataType: "json",
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "text",
       data: form_data,
       success: function (data) {
         if (data.update === "duplicate") {
@@ -577,9 +578,12 @@ $(document).ready(function () {
         form_data.append("uname", $("#physician_uname").val());
         form_data.append("pword", $("#physician_pword").val());
         $.ajax({
-          url: ".//db/saveNewPhysician.php",
+          url: "http://localhost/cityHealth-rms/db/saveNewPhysician.php",
           type: "POST",
-          dataType: "json",
+          cache: false,
+          contentType: false,
+          processData: false,
+          dataType: "text",
           data: form_data,
           success: function (data) {
             console.log(data);
@@ -617,7 +621,7 @@ $(document).ready(function () {
 
     if ($("#findings").val() !== "") {
       $.ajax({
-        url: ".//db/findings.php",
+        url: "http://localhost/cityHealth-rms/db/findings.php",
         type: "POST",
         dataType: "json",
         data: {

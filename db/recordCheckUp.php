@@ -30,7 +30,7 @@ $sql = $con->query("INSERT INTO check_up_tbl (
   )");
 
   if ($sql) {
-    move_uploaded_file($_FILES['scanned_form']['tmp_name'], "/img/uploads/".$file);
+    move_uploaded_file($_FILES['scanned_form']['tmp_name'], "../upload_files/".$file);
     echo json_encode(array("insert" => "success"));
     // header("Location: patient.php?id=".$patient_id);
   }else{

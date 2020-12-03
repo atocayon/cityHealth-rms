@@ -40,7 +40,7 @@ $sql = $con->query("UPDATE patient_info_tbl
 ");
 
 if ($sql) {
-  move_uploaded_file($_FILES['update_img']['tmp_name'], "/img/uploads".$img);
+  move_uploaded_file($_FILES['update_img']['tmp_name'], "../img/uploads".$img);
   echo json_encode(array("update" => "success"));
 }else{
   echo mysqli_error($con);
